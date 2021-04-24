@@ -2,6 +2,9 @@
 
 Command-line program to download single videos or playlist of playlist from [aparat](https://www.aparat.com)
 
+![Screenshot of program](Screenshot.png "Title")
+
+
 ### How to use it:
 #### Install dependencys:
 ```pip install -r requirements.txt```
