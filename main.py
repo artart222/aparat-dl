@@ -37,11 +37,11 @@ def get_video_title(soup):
 
 def find_qualitys(soup):
     qualitys_list = []
-    for link in soup.find_all("span"):
+    for tag in soup.find_all("span"):
         try:
-            if(link.get("class")[0] == "text"):
-                if("با کیفیت" in link.text):
-                    quality = link.text
+            if(tag.get("class")[0] == "text"):
+                if("با کیفیت" in tag.text):
+                    quality = tag.text
                     quality = quality.replace("با کیفیت ", "")
                     if(quality not in qualitys_list):
                         qualitys_list.append(quality)
@@ -63,9 +63,9 @@ def pick_quality(quality_lists):
 
 
 def find_download_link(soup, quality):
-    for link in soup.findAll('a'):
-        if(quality in (link.get('href'))):
-            return link.get("href")
+    for tag in soup.findAll('a'):
+        if(quality in (tag.get('href'))):
+            return tag.get("href")
 
 
 class Progress_Bar(tqdm):
@@ -79,10 +79,10 @@ def download(download_link, title):
             urllib.request.urlretrieve(download_link, title + ".mp4", reporthook = t.update_to)
 
 def download_playlist(soup):
-    for link in soup.findAll("a"):
+    for tag in soup.findAll("a"):
         try:
-            if(link.get("class")[0] == "light-80" and link.get("class")[1] == "dark-10"):
-                page_url = "https://www.aparat.com" + link["href"]
+            if(tag.get("class")[0] == "light-80" and tag.get("class")[1] == "dark-10"):
+                page_url = "https://www.aparat.com" + tag["href"]
                 new_soup = make_soup(page_url)
                 qualitys_list = find_qualitys(new_soup)
                 quality = (pick_quality(qualitys_list))["quality"]
